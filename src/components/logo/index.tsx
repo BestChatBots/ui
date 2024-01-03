@@ -80,3 +80,4 @@ export const Logo: React.FC<LogoProps> = ({
 };
 
 export * from './types';
+export * from './styled';

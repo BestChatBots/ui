@@ -39,9 +39,7 @@ export function createConfig(): RollupOptions[] {
           dir: distPath,
           format: 'es',
           sourcemap: true,
-          externalLiveBindings: false,
-          preserveModules: true,
-          preserveModulesRoot: srcPath
+          externalLiveBindings: false
         }
       ],
       plugins: [
@@ -54,6 +52,7 @@ export function createConfig(): RollupOptions[] {
         aliasPlugin,
         nodeExternals(),
         nodeResolve({
+          browser: true,
           extensions: ['.css', '.ts', '.tsx', '.js', '.jsx']
         }),
         commonjs(),
