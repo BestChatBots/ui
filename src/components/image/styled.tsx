@@ -1,3 +1,4 @@
+import React from 'react';
 import { styled, css } from 'styled-components';
 
 export const Image = styled.img`
@@ -31,3 +32,5 @@ export const Image = styled.img`
   }}
   user-select: none;
 `;
+
+export type ImageProps = React.ComponentProps<typeof Image>;

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
 import {
   Table, TableCell, TableCellText, TableGrayText, TableGreenText, TableHead, TableRedText, TableRow 
 } from '@/components/table';
@@ -20,6 +19,7 @@ import { Stars } from '@/components/stars';
 import { Model, Models } from '@/components/model';
 import { Platform, Platforms } from '@/components/platform';
 import { Avatar } from '@/components/avatar';
+import { Skeleton as BestChatBotsSkeleton } from '@/components/skeleton'; 
 import bothubLogo from './assets/bothub.png';
 import aigptLogo from './assets/aigpt.png';
 import chadgptLogo from './assets/chadgpt.png';
@@ -63,7 +63,7 @@ export const Basic: TableStory = {
     ),
     children: (
       <>
-        <TableRow>
+        <TableRow clickable>
           <TableCell align="center">
             <TopIcon />
           </TableCell>
@@ -1469,6 +1469,63 @@ export const Basic: TableStory = {
         </TableRow>
       </>
     )
+  }
+};
+
+export const Skeleton: TableStory = {
+  args: {
+    ...Basic.args,
+    children: [...Array(20)].map((_, index) => (
+      <TableRow
+        key={index}
+      >
+        <TableCell
+          align="center"
+        >
+          <BestChatBotsSkeleton 
+            width={24}
+          />
+        </TableCell>
+        <TableCell>
+          <Avatar size={24}>
+            <BestChatBotsSkeleton />
+          </Avatar>
+          <BestChatBotsSkeleton 
+            width={120}
+          />
+        </TableCell>
+        <TableCell>
+          <BestChatBotsSkeleton 
+            width={116}
+          />
+        </TableCell>
+        <TableCell>
+          <Models>
+            {[...Array(5)].map((_, index) => (
+              <Model 
+                key={index}
+                icon={<BestChatBotsSkeleton />}
+              />
+            ))}
+          </Models>
+        </TableCell>
+        <TableCell>
+          <BestChatBotsSkeleton 
+            width={120}
+          />
+        </TableCell>
+        <TableCell>
+          <Platforms>
+            {[...Array(4)].map((_, index) => (
+              <Platform
+                key={index}
+                icon={<BestChatBotsSkeleton />}
+              />
+            ))}
+          </Platforms>
+        </TableCell>
+      </TableRow>
+    ))
   }
 };
 

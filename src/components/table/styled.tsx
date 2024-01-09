@@ -21,16 +21,6 @@ export const TableContent = styled.table`
   border-spacing: 0px 8px;
 `;
 
-export const TableRow = styled.tr`
-  transition: 0.25s all;
-  ${TableCellStyled}:first-child {
-    border-left: 2px solid rgba(0, 0, 0, 0.0);
-  }
-  &:not(:first-child) {
-    margin-top: 8px;
-  }
-`;
-
 export const TableHead = styled.thead`
   ${TableCellStyled} {
     ${TableCellText} {
@@ -44,16 +34,9 @@ export const TableHead = styled.thead`
 `;
 
 export const TableBody = styled.tbody`
-  ${TableRow} {
-    &:hover {
-      background: ${({ theme }) => theme.colors.grayScale[700]};
-      ${TableCellStyled}:first-child {
-        border-left: 2px solid ${({ theme }) => theme.colors.accent.primary};
-      }
-    }
-  }
   ${TableCellStyled} {
-    cursor: pointer;
+    --bestchatbots-skeleton-width: 200px;
+    --bestchatbots-skeleton-height: 20px;
     ${TableCellText} {
       font-family: ${({ theme }) => theme.fonts.rubik.regular};
       font-size: 16px;

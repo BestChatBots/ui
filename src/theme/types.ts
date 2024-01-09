@@ -39,6 +39,7 @@ export interface ThemeColors {
   success: string;
   error: string;
   successDark: string;
+  info: string;
 }
 
 export interface ThemeTablet {

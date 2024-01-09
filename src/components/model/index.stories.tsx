@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Model, ModelDeleteButton } from '.';
 import { StoryDecorator } from '@/story-decorator';
 import { MjIcon } from '@/icons';
+import { Skeleton as BestChatBotsSkeleton } from '@/components/skeleton'; 
 
 export type ModelMeta = Meta<typeof Model>;
 
@@ -11,6 +12,12 @@ export const Basic: ModelStory = {
   args: {
     icon: <MjIcon />,
     name: 'Midjourney'
+  }
+};
+
+export const Skeleton: ModelStory = {
+  args: {
+    icon: <BestChatBotsSkeleton />
   }
 };
 

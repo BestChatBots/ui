@@ -18,10 +18,11 @@ export interface ButtonProps extends
   iconColor?: string;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  textVariant?: TypographyVariant;
 }
 
 export const Button: React.FC<ButtonProps> = ({
-  variant = 'primary', size = 'small', disabled = false, fullWidth = false, iconSize, color, hoverColor, iconColor, startIcon, endIcon, children, ...props
+  variant = 'primary', size = 'small', disabled = false, fullWidth = false, iconSize, color, hoverColor, iconColor, startIcon, endIcon, textVariant, children, ...props
 }) => {
   const theme = useTheme();
 
@@ -53,21 +54,20 @@ export const Button: React.FC<ButtonProps> = ({
     fill: iconFill, size: iconSize
   };
 
-  let textVariant: TypographyVariant;
   switch (variant) {
     case 'primary':
     case 'secondary':
       switch (size) {
         case 'small':
-          textVariant = 'button-sm';
+          textVariant ??= 'button-sm';
           break;
         case 'medium':
-          textVariant = 'button-md';
+          textVariant ??= 'button-md';
           break;
       }
       break;
     case 'text':
-      textVariant = 'body-m-regular';
+      textVariant ??= 'body-m-regular';
       break;
   }
 

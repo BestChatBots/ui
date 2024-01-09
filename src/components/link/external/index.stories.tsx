@@ -9,12 +9,12 @@ export type ExternalLinkStory = StoryObj<typeof ExternalLink>;
 export const Basic: ExternalLinkStory = {
   args: {
     href: '#',
-    children: 'Перейти на сайт'
+    children: 'Страница в ретинге'
   }
 };
 
 export default {
-  title: 'Components/ExternalLink',
+  title: 'Components/Link/External',
   component: ExternalLink,
   decorators: [StoryDecorator()]
 } as ExternalLinkMeta;

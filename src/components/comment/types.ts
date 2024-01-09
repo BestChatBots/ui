@@ -1,1 +1,1 @@
-export type CommentVariant = 'good' | 'bad';
+export type CommentVariant = 'good' | 'bad' | 'skeleton';

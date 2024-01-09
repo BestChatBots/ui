@@ -31,7 +31,8 @@ export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
       headlineGradient: 'linear-gradient(180deg, #FFF 69.55%, #F18669 97.73%)',
       success: '#19CD15',
       error: '#F72525',
-      successDark: '#126010'
+      successDark: '#126010',
+      info: '#248FF2'
     },
     fonts: {
       rubik: {

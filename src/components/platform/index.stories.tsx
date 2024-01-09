@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { StoryDecorator } from '@/story-decorator';
 import { WebIcon } from '@/icons';
+import { Skeleton as BestChatBotsSkeleton } from '@/components/skeleton'; 
 import { Platform } from '.';
 
 export type PlatformMeta = Meta<typeof Platform>;
@@ -11,6 +12,12 @@ export const Basic: PlatformStory = {
   args: {
     icon: <WebIcon />,
     name: 'Web'
+  }
+};
+
+export const Skeleton: PlatformStory = {
+  args: {
+    icon: <BestChatBotsSkeleton />
   }
 };
 

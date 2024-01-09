@@ -12,6 +12,9 @@ export const AvatarStyled = styled.span<AvatarStyledProps>`
   overflow: hidden;
   border-radius: 50%;
   user-select: none;
+  --bestchatbots-skeleton-width: ${({ $size }) => $size}px;
+  --bestchatbots-skeleton-height: ${({ $size }) => $size}px;
+  --bestchatbots-skeleton-radius: 50%;
 `;
 
 export const AvatarObject = styled.object`

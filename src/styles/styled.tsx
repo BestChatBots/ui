@@ -68,7 +68,7 @@ export const BestChatBotsGlobalStyleStyled = createGlobalStyle<BestChatBotsGloba
 
   #nprogress .bar {
     width: 100%;
-    height: 2px;
+    height: 2.25px;
     background: ${({ theme }) => theme.colors.accent.primary} !important;
   }
   #nprogress .peg {

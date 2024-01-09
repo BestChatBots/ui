@@ -17,54 +17,64 @@ export interface ModelProps extends React.ComponentProps<'span'> {
 
 export const Model: React.FC<ModelProps> = ({
   variant = 'icon', icon, name, delete: deleteNode, ...props
-}) => (
-  <ModelStyled
-    $variant={variant}
-    {...props}
-  >
-    {variant === 'icon' && (
-      <Tooltip label={name}>
-        <TooltipConsumer>
-          {({
-            handleTooltipMouseEnter,
-            handleTooltipMouseLeave,
-            handleTooltipMouseDown,
-            handleTooltipMouseUp
-          }) => (
-            <ModelIcon
-              onMouseEnter={handleTooltipMouseEnter}
-              onMouseLeave={handleTooltipMouseLeave}
-              onMouseDown={handleTooltipMouseDown}
-              onMouseUp={handleTooltipMouseUp}
-            >
-              <IconProvider
-                size={24}
-              >
-                {icon}
-              </IconProvider>
-            </ModelIcon>
+}) => {
+  const isIconSkeleton = React.isValidElement(icon) && (icon.type as React.FC).displayName === 'Skeleton';
+
+  return (
+    <ModelStyled
+      $variant={variant}
+      {...props}
+    >
+      {variant === 'icon' && (
+        isIconSkeleton ? (
+          <ModelIcon>
+            {icon}
+          </ModelIcon>
+        ) : (
+          <Tooltip label={name}>
+            <TooltipConsumer>
+              {({
+                handleTooltipMouseEnter,
+                handleTooltipMouseLeave,
+                handleTooltipMouseDown,
+                handleTooltipMouseUp
+              }) => (
+                <ModelIcon
+                  onMouseEnter={handleTooltipMouseEnter}
+                  onMouseLeave={handleTooltipMouseLeave}
+                  onMouseDown={handleTooltipMouseDown}
+                  onMouseUp={handleTooltipMouseUp}
+                >
+                  <IconProvider
+                    size={24}
+                  >
+                    {icon}
+                  </IconProvider>
+                </ModelIcon>
+              )}
+            </TooltipConsumer>
+          </Tooltip>
+        )
+      )}
+      {variant === 'text' && (
+        <ModelText>
+          <IconProvider
+            size={24}
+          >
+            {icon}
+          </IconProvider>
+          {typeof name === 'string' && (
+            <ModelName>
+              {name}
+            </ModelName>
           )}
-        </TooltipConsumer>
-      </Tooltip>
-    )}
-    {variant === 'text' && (
-      <ModelText>
-        <IconProvider
-          size={24}
-        >
-          {icon}
-        </IconProvider>
-        {typeof name === 'string' && (
-          <ModelName>
-            {name}
-          </ModelName>
-        )}
-        {typeof name !== 'string' && name}
-        {deleteNode}
-      </ModelText>
-    )}
-  </ModelStyled>
-);
+          {typeof name !== 'string' && name}
+          {deleteNode}
+        </ModelText>
+      )}
+    </ModelStyled>
+  );
+};
 
 export * from './types';
 export * from './styled';

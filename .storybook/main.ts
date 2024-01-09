@@ -20,6 +20,7 @@ export const config: StorybookConfig = {
   },
   async viteFinal(config) {
     return mergeConfig(config, {
+      assetsInclude: ['**/*.ttf'],
       resolve: {
         alias: {
           '@': '/src'

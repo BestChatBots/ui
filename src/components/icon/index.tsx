@@ -16,3 +16,4 @@ export const Icon: React.FC<IconProps> = ({ size: defaultSize = 18, ...props }) 
 export * from './context';
 export * from './component';
 export * from './styled';
+export * from './image';

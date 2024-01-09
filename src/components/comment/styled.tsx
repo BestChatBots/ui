@@ -5,6 +5,10 @@ import { Stars } from '@/components/stars';
 import { ThumbDownIcon, ThumbUpIcon } from '@/icons';
 import { CommentVariant } from './types';
 import { adaptive } from '@/adaptive';
+import { SkeletonStyled } from '@/components/skeleton';
+import { Button } from '@/components/button';
+import { Form } from '@/components/form';
+import { TextArea } from '@/components/textarea';
 
 export interface CommentStyledProps {
   $variant: CommentVariant;
@@ -17,15 +21,37 @@ export const CommentStyled = styled.div<CommentStyledProps>`
   width: 100%;
   max-width: 1020px;
   overflow: hidden;
-  background: ${({ theme }) => theme.colors.grayScale[700]};
-  border-left: 4px solid ${({ theme, $variant }) => {
+  background: ${({ theme, $variant }) => {
+    if ($variant === 'skeleton') {
+      return theme.colors.grayScale[800];
+    }
+
+    return theme.colors.grayScale[700];
+  }};
+  ${({ theme, $variant }) => {
+    let borderColor: string;
     switch ($variant) {
       case 'good':
-        return theme.colors.success;
+        borderColor = theme.colors.success;
+        break;
       case 'bad':
-        return theme.colors.error;
+        borderColor = theme.colors.error;
+        break;
+      case 'skeleton':
+        borderColor = theme.colors.grayScale[700];
+        break;
     }
-  }};
+
+    if ($variant === 'skeleton') {
+      return css`
+        border: 1px solid ${borderColor};
+      `;
+    } 
+
+    return css`
+      border-left: 4px solid ${borderColor};
+    `;
+  }}
   border-radius: 12px;
   ${adaptive({
     merge: true,
@@ -108,3 +134,53 @@ export const CommentBody = styled.div`
 `;
 
 export const CommentText = styled(Typography).attrs({ variant: 'body-s-regular' })``;
+
+export const CommentTextSkeleton = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  ${SkeletonStyled} {
+    height: 18px;
+  }
+  ${SkeletonStyled}:nth-child(n + 1) {
+    width: 100%;
+  }
+  ${SkeletonStyled}:nth-child(n + 2) {
+    width: 70%;
+  }
+  ${SkeletonStyled}:nth-child(n + 3) {
+    width: 40%;
+  }
+`;
+
+export const CommentActions = styled.div`
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+`;
+
+export const CommentAction = styled(Button).attrs({ variant: 'text', textVariant: 'body-m-medium' })``;
+
+export const CommentSendAction = styled(CommentAction).attrs(({ theme }) => ({ color: theme.colors.accent.primary, hoverColor: theme.colors.accent.primary }))``;
+
+export const CommentDeleteAction = styled(CommentAction).attrs(({ theme }) => ({ color: theme.colors.error, hoverColor: theme.colors.error }))``;
+
+export const CommentSendForm = styled(Form).attrs({ spacing: 12, fullWidth: true })`
+  margin-top: 10px;
+`;
+
+export const CommentSendInput = styled(TextArea).attrs({ fullWidth: true })`
+  max-height: 106px;
+`;
+
+export const CommentSendButton = styled(Button).attrs({ type: 'submit' })``;
+
+export const CommentChildren = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 10px;
+  width: 100%;
+`;

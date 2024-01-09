@@ -1,20 +1,29 @@
-import React from 'react';
-import ReactPaginate from 'react-paginate';
+import React, { useCallback } from 'react';
+import ReactPaginate, { ReactPaginateProps } from 'react-paginate';
 import { PaginationArrowLeftIcon, PaginationArrowRightIcon, PaginationStyled } from './styled';
 import { useTheme } from '@/theme';
 import { IconProvider } from '@/components/icon';
 
-export interface PaginationProps extends React.ComponentProps<'div'> {
+export type PaginationChangeEventHandler = (page: number) => unknown;
+
+export interface PaginationProps extends Omit<React.ComponentProps<'div'>, 'onChange'> {
   page: number;
   pageCount: number;
   pageRangeDisplayed?: number;
   marginPagesDisplayed?: number;
+  onChange?: PaginationChangeEventHandler;
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
-  page, pageCount, pageRangeDisplayed, marginPagesDisplayed, ...props
+  page, pageCount, pageRangeDisplayed, marginPagesDisplayed, 
+  onChange,
+  ...props
 }) => {
   const theme = useTheme();
+
+  const handleChange = useCallback<Exclude<ReactPaginateProps['onPageChange'], undefined>>(({ selected }) => {
+    onChange?.(selected + 1);
+  }, [onChange]);
 
   if (pageCount <= 1) {
     return null;
@@ -47,6 +56,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           breakLabel="..."
           previousLabel={<PaginationArrowLeftIcon />}
           nextLabel={<PaginationArrowRightIcon />}
+          onPageChange={handleChange}
         />
       </PaginationStyled>
     </IconProvider>

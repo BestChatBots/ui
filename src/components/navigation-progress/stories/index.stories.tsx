@@ -9,7 +9,7 @@ export type NavigationProgressStory = StoryObj<typeof NavigationProgressBasic>;
 export const Basic: NavigationProgressStory = {};
 
 export default {
-  title: 'Components/NavigationProgress',
+  title: 'Components/Progress/Navigation',
   component: NavigationProgressBasic,
   decorators: [StoryDecorator({ margin: '50px 0px' })]
 } as NavigationProgressMeta;

@@ -14,6 +14,9 @@ export const ModelStyled = styled.span<ModelStyledProps>`
 
 export const ModelIcon = styled.span`
   display: inline-flex;
+  --bestchatbots-skeleton-width: 24px;
+  --bestchatbots-skeleton-height: 24px;
+  --bestchatbots-skeleton-radius: 50%;
 `;
 
 export const ModelText = styled.span`

@@ -56,7 +56,14 @@ export function createConfig(): RollupOptions[] {
           extensions: ['.css', '.ts', '.tsx', '.js', '.jsx']
         }),
         commonjs(),
+        babel({ 
+          babelHelpers: 'bundled',
+          exclude: 'node_modules/**',
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+          babelrc: true
+        }),
         esbuild({
+          minify: true,
           tsconfig: join(rootPath, './tsconfig.json'),
           exclude: [
             'node_modules/**',
@@ -67,19 +74,7 @@ export function createConfig(): RollupOptions[] {
           include: ['**/*.png', '**/*.svg', '**/*.webp']
         }),
         postcss(),
-        terser(),
-        babel({ 
-          babelHelpers: 'bundled',
-          exclude: 'node_modules/**',
-          extensions: ['.js', '.ts'],
-          presets: ['@babel/preset-react'],
-          plugins: [
-            ['babel-plugin-styled-components', {
-              ssr: true,
-              displayName: true
-            }]
-          ]
-        })
+        terser()
       ],
       external
     },

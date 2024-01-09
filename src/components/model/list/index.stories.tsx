@@ -5,6 +5,7 @@ import { Model, ModelDeleteButton } from '@/components/model';
 import {
   ClaudeIcon, DalleIcon, Gpt35Icon, Gpt4Icon, MjIcon 
 } from '@/icons';
+import { Skeleton } from '@/components/skeleton';
 
 export type ModelsMeta = Meta<typeof Models>;
 
@@ -33,6 +34,30 @@ export const Row: ModelsStory = {
         <Model
           icon={<ClaudeIcon />}
           name="Claude AI"
+        />
+      </>
+    )
+  }
+};
+
+export const RowSkeleton: ModelsStory = {
+  args: {
+    children: (
+      <>
+        <Model
+          icon={<Skeleton />}
+        />
+        <Model
+          icon={<Skeleton />}
+        />
+        <Model
+          icon={<Skeleton />}
+        />
+        <Model
+          icon={<Skeleton />}
+        />
+        <Model
+          icon={<Skeleton />}
         />
       </>
     )

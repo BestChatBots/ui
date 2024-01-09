@@ -42,3 +42,5 @@ export * from './trash';
 export * from './tg-basic';
 export * from './info-circle-2';
 export * from './noimg';
+export * from './error';
+export * from './warning';

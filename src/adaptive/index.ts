@@ -1,7 +1,9 @@
-import { css } from 'styled-components';
-import type { RuleSet, Interpolation, ExecutionContext } from 'styled-components/dist/types';
+import { css, RuleSet, ExecutionContext } from 'styled-components';
 
 export type AdaptiveStyle = string | number | false | RuleSet<object>;
+
+export type AdaptiveResult<Props extends object> = 
+  (props: ExecutionContext & Props) => AdaptiveStyle;
 
 export interface AdaptiveOptions {
   merge?: boolean;
@@ -14,7 +16,7 @@ export interface AdaptiveOptions {
 export type AdaptiveFn<Props extends object> = (props: ExecutionContext & Props) => AdaptiveOptions;
 
 export function adaptive
-<Props extends object>(optionsOrFn: AdaptiveOptions | AdaptiveFn<Props>): Interpolation<Props> {
+<Props extends object>(optionsOrFn: AdaptiveOptions | AdaptiveFn<Props>): AdaptiveResult<Props> {
   return (props) => {
     const { theme } = props;
     const {

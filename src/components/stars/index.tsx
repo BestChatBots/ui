@@ -10,7 +10,7 @@ export type StarsHoverEventHandler = (filled: number) => unknown;
 export type StarsSelectEventHandler = (filled: number) => unknown;
 
 export interface StarsProps extends Omit<React.ComponentProps<'span'>, 'onSelect'> {
-  filled: number;
+  filled?: number;
   size?: StarSize;
   count?: number;
   onHover?: StarsHoverEventHandler;
@@ -18,7 +18,7 @@ export interface StarsProps extends Omit<React.ComponentProps<'span'>, 'onSelect
 }
 
 export const Stars: React.FC<StarsProps> = ({
-  filled = 0, size = 20, count = 5, onHover, onSelect, ...props
+  filled = 5, size = 20, count = 5, children, onHover, onSelect, ...props
 }) => {
   const theme = useTheme();
 

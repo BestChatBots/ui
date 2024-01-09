@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { StoryDecorator } from '@/story-decorator';
 import { Avatar } from '.';
+import { Skeleton as BestChatBotsSkeleton } from '@/components/skeleton'; 
 
 export type AvatarMeta = Meta<typeof Avatar>;
 
@@ -16,6 +17,14 @@ export const Basic: AvatarStory = {
 export const Default: AvatarStory = {
   args: {
     alt: '@dev2alert'
+  }
+};
+
+export const Skeleton: AvatarStory = {
+  args: {
+    children: (
+      <BestChatBotsSkeleton />
+    )
   }
 };
 

@@ -5,27 +5,38 @@ import {
 import { useTheme } from '@/theme';
 import { IconProvider } from '@/components/icon';
 
-export interface InputProps extends React.ComponentProps<'input'> {
+export type InputChangeEventHandler = (value: string) => unknown;
+
+export interface InputProps extends Omit<React.ComponentProps<'input'>, 'onChange'> {
   label?: string;
   error?: string;
   fullWidth?: boolean;
+  onChange?: InputChangeEventHandler;
+  onInputChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 export const Input: React.FC<InputProps> = ({
-  className, label, error, fullWidth = false, type, disabled = false, onFocus, onBlur, ...props
+  className, label, error, fullWidth = false, type, disabled = false, 
+  onFocus, onBlur, onChange, onInputChange, 
+  ...props
 }) => {
   const theme = useTheme();
 
   const [isFocus, setIsFocus] = useState(false);
 
-  const handleFocus = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocus = useCallback<React.FocusEventHandler<HTMLInputElement>>((event) => {
     onFocus?.(event);
     setIsFocus(true);
   }, [onFocus]);
-  const handleBlur = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = useCallback<React.FocusEventHandler<HTMLInputElement>>((event) => {
     onBlur?.(event);
     setIsFocus(false);
   }, [onBlur]);
+
+  const handleChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>((event) => {
+    onChange?.(event.target.value);
+    onInputChange?.(event);
+  }, [onChange, onInputChange]);
 
   const isLabel = !!label;
   const isError = !!error;
@@ -59,6 +70,7 @@ export const Input: React.FC<InputProps> = ({
           disabled={disabled}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          onChange={handleChange}
         />
       </InputBlock>
       {isError && (

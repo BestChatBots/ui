@@ -10,35 +10,46 @@ export interface PlatformProps extends React.ComponentProps<'span'> {
 
 export const Platform: React.FC<PlatformProps> = ({
   icon, name, ...props
-}) => (
-  <PlatformStyled
-    {...props}
-  >
-    <Tooltip label={name}>
-      <TooltipConsumer>
-        {({
-          handleTooltipMouseEnter,
-          handleTooltipMouseLeave,
-          handleTooltipMouseDown,
-          handleTooltipMouseUp
-        }) => (
-          <PlatformIcon
-            onMouseEnter={handleTooltipMouseEnter}
-            onMouseLeave={handleTooltipMouseLeave}
-            onMouseDown={handleTooltipMouseDown}
-            onMouseUp={handleTooltipMouseUp}
-          >
-            <IconProvider
-              size={24}
-            >
-              {icon}
-            </IconProvider>
-          </PlatformIcon>
-        )}
-      </TooltipConsumer>
-    </Tooltip>
-  </PlatformStyled>
-);
+}) => {
+  const isIconSkeleton = React.isValidElement(icon) && (icon.type as React.FC).displayName === 'Skeleton';
+
+  return (
+    <PlatformStyled
+      {...props}
+    >
+      {isIconSkeleton && (
+        <PlatformIcon>
+          {icon}
+        </PlatformIcon>
+      )}
+      {!isIconSkeleton && (
+        <Tooltip label={name}>
+          <TooltipConsumer>
+            {({
+              handleTooltipMouseEnter,
+              handleTooltipMouseLeave,
+              handleTooltipMouseDown,
+              handleTooltipMouseUp
+            }) => (
+              <PlatformIcon
+                onMouseEnter={handleTooltipMouseEnter}
+                onMouseLeave={handleTooltipMouseLeave}
+                onMouseDown={handleTooltipMouseDown}
+                onMouseUp={handleTooltipMouseUp}
+              >
+                <IconProvider
+                  size={24}
+                >
+                  {icon}
+                </IconProvider>
+              </PlatformIcon>
+            )}
+          </TooltipConsumer>
+        </Tooltip>
+      )}
+    </PlatformStyled>
+  );
+};
 
 export * from './styled';
 export * from './list';

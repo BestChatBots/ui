@@ -13,7 +13,7 @@ export const Logo: CircularProgressStory = {
 };
 
 export default {
-  title: 'Components/CircularProgress',
+  title: 'Components/Progress/Circular',
   component: CircularProgress,
   decorators: [StoryDecorator()]
 } as CircularProgressMeta;

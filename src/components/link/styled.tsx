@@ -1,8 +1,7 @@
 import { styled, css } from 'styled-components';
-import { LinkOutIcon } from '@/icons';
 import { Typography } from '@/components/typography';
 
-export const ExternalLinkStyled = styled.a`
+export const LinkStyled = styled.a`
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -10,18 +9,16 @@ export const ExternalLinkStyled = styled.a`
   text-decoration: none;
   ${({ theme }) => css`
     &:hover {
-      ${ExternalLinkText} {
+      ${LinkText} {
         color: ${theme.colors.accent.primary};
       }
-      ${ExternalLinkIcon} path {
+      svg path {
         fill: ${theme.colors.accent.primary};
       }
     }
   `}
 `;
 
-export const ExternalLinkText = styled(Typography).attrs({ variant: 'body-s-regular' })`
+export const LinkText = styled(Typography).attrs({ variant: 'body-s-regular' })`
   user-select: none;
 `;
-
-export const ExternalLinkIcon = styled(LinkOutIcon).attrs({ size: 18 })``;

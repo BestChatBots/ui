@@ -27,10 +27,18 @@ import {
   ImageInputStyled 
 } from './styled';
 
-export interface ImageInputProps extends React.ComponentProps<'input'> {
+export type ImageInputChangeEventHandler = (
+  dataUrl: string | null, 
+  file: File | null, 
+  reader: FileReader | null
+) => unknown;
+
+export interface ImageInputProps extends Omit<React.ComponentProps<'input'>, 'onChange'> {
   type?: ImageInputType;
   label?: string;
   error?: string;
+  onChange?: ImageInputChangeEventHandler;
+  onInputChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 export const ImageInput: React.FC<ImageInputProps> = ({
@@ -39,7 +47,8 @@ export const ImageInput: React.FC<ImageInputProps> = ({
   size = 5242880, 
   label, 
   error, 
-  onChange, 
+  onChange,
+  onInputChange,
   ...props
 }) => {
   const isLabel = !!label;
@@ -58,19 +67,27 @@ export const ImageInput: React.FC<ImageInputProps> = ({
       
         setPreviewImageFileName(file.name);
         setPreviewImageUrl(previewImageUrl);
+
+        onChange?.(
+          previewImageUrl,
+          file,
+          reader
+        );
       });
       reader.readAsDataURL(file);
     }
 
-    onChange?.(event);
-  }, [onChange]);
+    onInputChange?.(event);
+  }, [onChange, onInputChange]);
 
   const handleDelete = useCallback<React.MouseEventHandler<HTMLButtonElement>>((event) => {
     event.preventDefault();
     
     setPreviewImageFileName(null);
     setPreviewImageUrl(null);
-  }, []);
+
+    onChange?.(null, null, null);
+  }, [onChange]);
 
   return (
     <ImageInputStyled

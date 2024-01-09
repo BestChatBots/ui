@@ -5,6 +5,7 @@ import { Platform } from '@/components/platform';
 import {
   AndroidIcon, IosIcon, TgIcon, WebIcon 
 } from '@/icons';
+import { Skeleton as BestChatBotsSkeleton } from '@/components/skeleton'; 
 
 export type PlatformsMeta = Meta<typeof Platforms>;
 
@@ -29,6 +30,27 @@ export const Basic: PlatformsStory = {
         <Platform
           icon={<AndroidIcon />}
           name="Android"
+        />
+      </>
+    )
+  }
+};
+
+export const Skeleton: PlatformsStory = {
+  args: {
+    children: (
+      <>
+        <Platform
+          icon={<BestChatBotsSkeleton />}
+        />
+        <Platform
+          icon={<BestChatBotsSkeleton />}
+        />
+        <Platform
+          icon={<BestChatBotsSkeleton />}
+        />
+        <Platform
+          icon={<BestChatBotsSkeleton />}
         />
       </>
     )

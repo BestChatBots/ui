@@ -1,6 +1,6 @@
 {
   "name": "@bestchatbots/ui",
-  "version": "0.3.2",
+  "version": "0.4.2",
   "description": "UI Kit for BestChatBots",
   "type": "module",
   "main": "./dist/index.js",
@@ -29,7 +29,8 @@
   "homepage": "https://bestchatbots.org",
   "devDependencies": {
     "@babel/core": "^7.0.0",
-    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-env": "^7.23.7",
+    "@babel/preset-typescript": "^7.23.3",
     "@bestchatbots/eslint-config": "^0.1.4",
     "@rollup/plugin-alias": "^5.0.1",
     "@rollup/plugin-babel": "^6.0.4",
@@ -81,10 +82,10 @@
   "peerDependencies": {
     "framer-motion": ">=10.16.3",
     "normalize.css": ">=8.0.1",
+    "nprogress": ">=0.2.0",
     "react": ">=18.2.0",
     "react-dom": ">=18.2.0",
-    "styled-components": ">=6.0.7",
-    "nprogress": ">=0.2.0"
+    "styled-components": ">=6.0.7"
   },
   "dependencies": {}
 }
