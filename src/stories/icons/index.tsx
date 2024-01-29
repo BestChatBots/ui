@@ -31,14 +31,19 @@ import {
   IosIcon,
   LangIcon,
   LinkOutIcon,
+  LoaderIcon,
   LogoutIcon,
   MailIcon,
   MenuIcon,
   MjIcon,
+  ModelIcon,
   NoimgIcon,
   OfficialProfileIcon,
+  PlatformIcon,
+  PlusIcon,
   ProjectsIcon,
   RatingIcon, 
+  ReviewBigIcon, 
   SearchIcon, 
   StarFilledIcon,
   StarOutlineIcon,
@@ -107,6 +112,11 @@ export const Icons: React.FC<IconsProps> = ({ ...props }) => (
           <IconItem name="NoimgIcon">{NoimgIcon}</IconItem>
           <IconItem name="ErrorIcon">{ErrorIcon}</IconItem>
           <IconItem name="WarningIcon">{WarningIcon}</IconItem>
+          <IconItem name="PlusIcon">{PlusIcon}</IconItem>
+          <IconItem name="ModelIcon">{ModelIcon}</IconItem>
+          <IconItem name="PlatformIcon">{PlatformIcon}</IconItem>
+          <IconItem name="LoaderIcon">{LoaderIcon}</IconItem>
+          <IconItem name="ReviewBigIcon">{ReviewBigIcon}</IconItem>
         </IconsGroupContent>
       </IconsGroup>
       <IconsGroup>

@@ -1,97 +1,97 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { 
-  Comment, 
-  CommentActions, 
-  CommentChild, 
-  CommentChildren, 
-  CommentDeleteAction, 
-  CommentSendAction, 
-  CommentSendButton, 
-  CommentSendForm, 
-  CommentSendInput, 
-  CommentStars, 
-  CommentText, 
-  CommentatorAvatar, 
-  CommentatorChildAvatar,
-  CommentatorChildAdminAvatar,
-  CommentChildText,
-  CommentChildActions,
-  CommentChildDeleteAction
+  Review, 
+  ReviewActions, 
+  ReviewChild, 
+  ReviewChildren, 
+  ReviewDeleteAction, 
+  ReviewSendAction, 
+  ReviewSendButton, 
+  ReviewSendForm, 
+  ReviewSendInput, 
+  ReviewStars, 
+  ReviewText, 
+  ReviewerAvatar, 
+  ReviewerChildAvatar,
+  ReviewerChildAdminAvatar,
+  ReviewChildText,
+  ReviewChildActions,
+  ReviewChildDeleteAction
 } from '.';
 import { StoryDecorator } from '@/story-decorator';
 
-export type CommentMeta = Meta<typeof Comment>;
+export type ReviewMeta = Meta<typeof Review>;
 
-export type CommentStory = StoryObj<typeof Comment>;
+export type ReviewStory = StoryObj<typeof Review>;
 
-export const Good: CommentStory = {
+export const Good: ReviewStory = {
   args: {
     variant: 'good',
     avatar: (
-      <CommentatorAvatar
+      <ReviewerAvatar
         src="https://lh3.googleusercontent.com/a/AAcHTtdrCPPVWKH7r9JfDe7l99rmfw24zPAJkPOJTXQSg8tgKcc=s96-c"
         alt="@dev2alert"
       />
     ),
     name: 'Артем Потыкун',
     stars: (
-      <CommentStars filled={5} />
+      <ReviewStars filled={5} />
     ),
     dateCreated: '5 декабря 2023 13:11',
     children: 'Этот аггрегатор нейросетей действительно заслуживает высокой оценки! Он удивительно удобен в использовании, предлагает широкий спектр функций и инструментов, что значительно упрощает работу с большими данными. Впечатляет скорость обработки запросов и точность результатов. Отличная работа команды разработчиков – это настоящий прорыв в области искусственного интеллекта!'
   }
 };
 
-export const Bad: CommentStory = {
+export const Bad: ReviewStory = {
   args: {
     ...Good.args,
     variant: 'bad',
     stars: (
-      <CommentStars filled={2} />
+      <ReviewStars filled={2} />
     )
   }
 };
 
-export const Actions: CommentStory = {
+export const Actions: ReviewStory = {
   args: {
     ...Good.args,
     children: (
       <>
-        <CommentText>
+        <ReviewText>
           Этот аггрегатор нейросетей действительно заслуживает высокой 
           оценки! Он удивительно удобен в использовании, предлагает 
           широкий спектр функций и инструментов, что значительно 
           упрощает работу с большими данными. Впечатляет скорость 
           обработки запросов и точность результатов. Отличная работа 
           команды разработчиков – это настоящий прорыв в области искусственного интеллекта!
-        </CommentText>
-        <CommentActions>
-          <CommentSendAction>
+        </ReviewText>
+        <ReviewActions>
+          <ReviewSendAction>
             Комментировать
-          </CommentSendAction>
-          <CommentDeleteAction>
+          </ReviewSendAction>
+          <ReviewDeleteAction>
             Удалить
-          </CommentDeleteAction>
-        </CommentActions>
-        <CommentSendForm>
-          <CommentSendInput 
+          </ReviewDeleteAction>
+        </ReviewActions>
+        <ReviewSendForm>
+          <ReviewSendInput 
             placeholder="Напишите комментарий"
           />
-          <CommentSendButton>
+          <ReviewSendButton>
             Добавить комментарий
-          </CommentSendButton>
-        </CommentSendForm>
+          </ReviewSendButton>
+        </ReviewSendForm>
       </>
     )
   }
 };
 
-export const Children: CommentStory = {
+export const Children: ReviewStory = {
   args: {
     ...Good.args,
     children: (
       <>
-        <CommentText>
+        <ReviewText>
           Этот аггрегатор нейросетей действительно заслуживает высокой 
           оценки! Он удивительно удобен в использовании, предлагает 
           широкий спектр функций и инструментов, что значительно 
@@ -99,11 +99,11 @@ export const Children: CommentStory = {
           обработки запросов и точность результатов. Отличная работа 
           команды разработчиков – это настоящий прорыв в области 
           искусственного интеллекта!
-        </CommentText>
-        <CommentChildren>
-          <CommentChild
+        </ReviewText>
+        <ReviewChildren>
+          <ReviewChild
             avatar={(
-              <CommentatorChildAvatar
+              <ReviewerChildAvatar
                 src="https://lh3.googleusercontent.com/a/AAcHTtdrCPPVWKH7r9JfDe7l99rmfw24zPAJkPOJTXQSg8tgKcc=s96-c"
                 alt="@dev2alert" 
               />
@@ -112,41 +112,41 @@ export const Children: CommentStory = {
             dateCreated="3 декабря 2023 22:41"
           >
             Благодарим за ваш отзыв, рады стараться. С уважением, команда Bothub.chat!
-          </CommentChild>
-          <CommentChild
-            avatar={<CommentatorChildAdminAvatar />}
+          </ReviewChild>
+          <ReviewChild
+            avatar={<ReviewerChildAdminAvatar />}
             name="Администратор Bothub.chat"
             dateCreated="3 декабря 2023 22:41"
           >
-            <CommentChildText>
+            <ReviewChildText>
               Благодарим за ваш отзыв, рады стараться.
               С уважением, команда Bothub.chat!
-            </CommentChildText>
-            <CommentChildActions>
-              <CommentChildDeleteAction>
+            </ReviewChildText>
+            <ReviewChildActions>
+              <ReviewChildDeleteAction>
                 Удалить
-              </CommentChildDeleteAction>
-            </CommentChildActions>
-          </CommentChild>
-        </CommentChildren>
-        <CommentActions>
-          <CommentSendAction>
+              </ReviewChildDeleteAction>
+            </ReviewChildActions>
+          </ReviewChild>
+        </ReviewChildren>
+        <ReviewActions>
+          <ReviewSendAction>
             Комментировать
-          </CommentSendAction>
-        </CommentActions>
+          </ReviewSendAction>
+        </ReviewActions>
       </>
     )
   }
 };
 
-export const Skeleton: CommentStory = {
+export const Skeleton: ReviewStory = {
   args: {
     variant: 'skeleton'
   }
 };
 
 export default {
-  title: 'Components/Comment',
-  component: Comment,
+  title: 'Components/Review',
+  component: Review,
   decorators: [StoryDecorator()]
-} as CommentMeta;
+} as ReviewMeta;

@@ -44,3 +44,8 @@ export * from './info-circle-2';
 export * from './noimg';
 export * from './error';
 export * from './warning';
+export * from './plus';
+export * from './model';
+export * from './platform';
+export * from './loader';
+export * from './review-big';

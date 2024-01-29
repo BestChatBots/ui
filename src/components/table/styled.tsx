@@ -16,8 +16,8 @@ export const TableScrollbarWrapper = styled(Scrollbar).attrs({ variant: 'seconda
 
 export const TableContent = styled.table`
   width: 100%;
-  max-width: 1040px;
-  min-width: 830px;
+  max-width: ${({ theme }) => theme.table.maxWidth};
+  min-width: ${({ theme }) => theme.table.minWidth};
   border-spacing: 0px 8px;
 `;
 

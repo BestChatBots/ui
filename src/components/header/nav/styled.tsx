@@ -1,5 +1,5 @@
 import { styled, css } from 'styled-components';
-import { motion } from 'framer-motion';
+import { LayoutProps, motion } from 'framer-motion';
 import React from 'react';
 import { adaptive } from '@/adaptive';
 
@@ -41,4 +41,4 @@ export const HeaderNavStyled = styled(motion.nav).attrs({ layout: true, layoutRo
       ${adaptiveStyle}
     `;
   }}
-` as React.FC<HeaderNavStyledProps & React.PropsWithChildren>;
+` as React.FC<LayoutProps & HeaderNavStyledProps & React.PropsWithChildren>;

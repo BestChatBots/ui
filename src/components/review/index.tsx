@@ -1,43 +1,43 @@
 import React from 'react';
-import { CommentVariant } from './types';
+import { ReviewVariant } from './types';
 import {
-  CommentBadIcon,
-  CommentBody,
-  CommentDateCreated,
-  CommentGoodIcon,
-  CommentHead, 
-  CommentHeadSide, 
-  CommentStyled, 
-  CommentText, 
-  CommentTextSkeleton, 
-  Commentator, 
-  CommentatorAvatar, 
-  CommentatorName 
+  ReviewBadIcon,
+  ReviewBody,
+  ReviewDateCreated,
+  ReviewGoodIcon,
+  ReviewHead, 
+  ReviewHeadSide, 
+  ReviewStyled, 
+  ReviewText, 
+  ReviewTextSkeleton, 
+  Reviewer, 
+  ReviewerAvatar, 
+  ReviewerName 
 } from './styled';
 import { Skeleton } from '@/components/skeleton';
 
-export interface CommentProps extends React.ComponentProps<'div'> {
-  variant: CommentVariant;
+export interface ReviewProps extends React.ComponentProps<'div'> {
+  variant: ReviewVariant;
   avatar?: React.ReactNode;
   name?: React.ReactNode;
   stars?: React.ReactNode;
   dateCreated?: React.ReactNode;
 }
 
-export const Comment: React.FC<CommentProps> = ({
+export const Review: React.FC<ReviewProps> = ({
   variant, avatar, name, stars, dateCreated, children, ...props
 }) => (
-  <CommentStyled
+  <ReviewStyled
     $variant={variant}
     {...props}
   >
-    <CommentHead>
-      <CommentHeadSide>
-        <Commentator>
+    <ReviewHead>
+      <ReviewHeadSide>
+        <Reviewer>
           {variant === 'skeleton' && (
-            <CommentatorAvatar>
+            <ReviewerAvatar>
               <Skeleton />
-            </CommentatorAvatar>
+            </ReviewerAvatar>
           )}
           {variant !== 'skeleton' && avatar}
           {variant === 'skeleton' && (
@@ -47,12 +47,12 @@ export const Comment: React.FC<CommentProps> = ({
             />
           )}
           {typeof name === 'string' && (
-            <CommentatorName>
+            <ReviewerName>
               {name}
-            </CommentatorName>
+            </ReviewerName>
           )}
           {typeof name !== 'string' && name}
-        </Commentator>
+        </Reviewer>
         {variant === 'skeleton' && (
           <Skeleton
             width={114}
@@ -60,8 +60,8 @@ export const Comment: React.FC<CommentProps> = ({
           />
         )}
         {stars}
-      </CommentHeadSide>
-      <CommentHeadSide>
+      </ReviewHeadSide>
+      <ReviewHeadSide>
         {variant === 'skeleton' && (
           <Skeleton
             width={158}
@@ -69,9 +69,9 @@ export const Comment: React.FC<CommentProps> = ({
           />
         )}
         {typeof dateCreated === 'string' && (
-          <CommentDateCreated>
+          <ReviewDateCreated>
             {dateCreated}
-          </CommentDateCreated>
+          </ReviewDateCreated>
         )}
         {typeof dateCreated !== 'string' && dateCreated}
         {variant === 'skeleton' && (
@@ -81,31 +81,31 @@ export const Comment: React.FC<CommentProps> = ({
           />
         )}
         {variant === 'good' && (
-          <CommentGoodIcon />
+          <ReviewGoodIcon />
         )}
         {variant === 'bad' && (
-          <CommentBadIcon />
+          <ReviewBadIcon />
         )}
-      </CommentHeadSide>
-    </CommentHead>
-    <CommentBody>
+      </ReviewHeadSide>
+    </ReviewHead>
+    <ReviewBody>
       {variant === 'skeleton' && (
-        <CommentTextSkeleton>
+        <ReviewTextSkeleton>
           {[...Array(3)].map((_, index) => (
             <Skeleton 
               key={index}
             />
           ))}
-        </CommentTextSkeleton>
+        </ReviewTextSkeleton>
       )}
       {typeof children === 'string' && (
-        <CommentText>
+        <ReviewText>
           {children}
-        </CommentText>
+        </ReviewText>
       )}
       {typeof children !== 'string' && children}
-    </CommentBody>
-  </CommentStyled>
+    </ReviewBody>
+  </ReviewStyled>
 );
 
 export * from './types';

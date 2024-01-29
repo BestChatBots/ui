@@ -6,6 +6,8 @@ export interface IconImageStyledProps {
 }
 
 export const IconImageStyled = styled(Image)<IconImageStyledProps>`
+  display: inline-flex;
+  flex-shrink: 0;
   ${({ $round }) => $round && css`
     overflow: hidden;
     border-radius: 50%;

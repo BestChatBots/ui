@@ -1,8 +1,9 @@
 import { styled } from 'styled-components';
 
-export const Comments = styled.div`
+export const Reviews = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 14px;
+  width: 100%;
 `;

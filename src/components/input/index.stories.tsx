@@ -36,7 +36,30 @@ export const Disabled: InputStory = {
 export const Search: InputStory = {
   args: {
     type: 'search',
-    placeholder: 'Введите название...'
+    placeholder: 'Поиск проектов'
+  }
+};
+
+export const Start: InputStory = {
+  args: {
+    ...Basic.args,
+    start: 'https://bestchatbots.org/project/',
+    placeholder: '(Не задано)',
+    width: 500
+  }
+};
+
+export const StartError: InputStory = {
+  args: {
+    ...Start.args,
+    error: 'Error message'
+  }
+};
+
+export const StartDisabled: InputStory = {
+  args: {
+    ...Start.args,
+    disabled: true
   }
 };
 

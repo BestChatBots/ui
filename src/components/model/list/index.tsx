@@ -7,7 +7,7 @@ export interface ModelsProps extends React.ComponentProps<'div'> {
 }
 
 export const Models: React.FC<ModelsProps> = ({
-  children, direction = 'row', ...props
+  direction = 'row', children, ...props
 }) => (
   <ModelsStyled
     {...props}

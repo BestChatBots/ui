@@ -12,7 +12,7 @@ import {
   NotificationTitle 
 } from './styled';
 import {
-  CircleCheckIcon, ErrorIcon, InfoCircleIcon, WarningIcon 
+  CircleCheckIcon, ErrorIcon, InfoCircleIcon, LoaderIcon, WarningIcon 
 } from '@/icons';
 import { NotificationVariant } from './types';
 import { useNotifications } from './list';
@@ -64,6 +64,10 @@ export const Notification: React.FC<NotificationProps> = ({
     case 'success':
       iconComponent = CircleCheckIcon;
       iconColor = theme.colors.success;
+      break;
+    case 'loader':
+      iconComponent = LoaderIcon;
+      iconColor = theme.colors.info;
       break;
   }
 

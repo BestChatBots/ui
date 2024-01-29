@@ -70,6 +70,10 @@ export const ThemeProvider: React.FC<React.PropsWithChildren> = ({
     },
     drawer: {
       width: '270px'
+    },
+    table: {
+      maxWidth: '1040px',
+      minWidth: '1040px'
     }
   }), []);
 

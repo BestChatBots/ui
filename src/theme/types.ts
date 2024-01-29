@@ -6,6 +6,7 @@ export interface Theme {
   zIndex: ThemeZIndex;
   header: ThemeHeader;
   drawer: ThemeDrawer;
+  table: ThemeTable;
 }
 
 export interface ThemeBaseColors {
@@ -89,4 +90,9 @@ export interface ThemeFonts {
 
 export interface ThemeDrawer {
   width: string;
+}
+
+export interface ThemeTable {
+  maxWidth: string;
+  minWidth: string;
 }

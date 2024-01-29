@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Platforms } from '.';
 import { StoryDecorator } from '@/story-decorator';
-import { Platform } from '@/components/platform';
+import { Platform, PlatformDeleteButton } from '@/components/platform';
 import {
   AndroidIcon, IosIcon, TgIcon, WebIcon 
 } from '@/icons';
@@ -11,7 +11,7 @@ export type PlatformsMeta = Meta<typeof Platforms>;
 
 export type PlatformsStory = StoryObj<typeof Platforms>;
 
-export const Basic: PlatformsStory = {
+export const Row: PlatformsStory = {
   args: {
     children: (
       <>
@@ -36,7 +36,7 @@ export const Basic: PlatformsStory = {
   }
 };
 
-export const Skeleton: PlatformsStory = {
+export const RowSkeleton: PlatformsStory = {
   args: {
     children: (
       <>
@@ -51,6 +51,40 @@ export const Skeleton: PlatformsStory = {
         />
         <Platform
           icon={<BestChatBotsSkeleton />}
+        />
+      </>
+    )
+  }
+};
+
+export const Column: PlatformsStory = {
+  args: {
+    direction: 'column',
+    children: (
+      <>
+        <Platform
+          variant="text"
+          icon={<WebIcon />}
+          name="Web"
+          delete={<PlatformDeleteButton />}
+        />
+        <Platform
+          variant="text"
+          icon={<TgIcon />}
+          name="Telegram"
+          delete={<PlatformDeleteButton />}
+        />
+        <Platform
+          variant="text"
+          icon={<IosIcon />}
+          name="iOS"
+          delete={<PlatformDeleteButton />}
+        />
+        <Platform
+          variant="text"
+          icon={<AndroidIcon />}
+          name="Android"
+          delete={<PlatformDeleteButton />}
         />
       </>
     )

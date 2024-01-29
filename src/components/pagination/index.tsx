@@ -25,10 +25,6 @@ export const Pagination: React.FC<PaginationProps> = ({
     onChange?.(selected + 1);
   }, [onChange]);
 
-  if (pageCount <= 1) {
-    return null;
-  }
-
   return (
     <IconProvider
       size={18}
@@ -38,7 +34,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         {...props}
       >
         <ReactPaginate
-          initialPage={page - 1}
+          forcePage={page - 1}
           pageCount={pageCount}
           pageRangeDisplayed={pageRangeDisplayed}
           marginPagesDisplayed={marginPagesDisplayed}

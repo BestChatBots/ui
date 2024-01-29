@@ -15,6 +15,7 @@ export const NotificationStyled = styled(motion.div)<NotificationStyledProps>`
   border: 1px solid ${({ theme, $variant }) => {
     switch ($variant) {
       case 'info':
+      case 'loader':
         return theme.colors.info;
       case 'warn':
         return theme.colors.orange;
@@ -32,6 +33,14 @@ export const NotificationStyled = styled(motion.div)<NotificationStyledProps>`
   padding: 16px;
   flex-shrink: 0;
   pointer-events: auto;
+  cursor: ${({ $variant }) => {
+    switch ($variant) {
+      case 'loader':
+        return 'progress';
+      default:
+        return 'default';
+    }
+  }};
 `;
 
 export interface NotificationContentProps {
@@ -85,6 +94,7 @@ export const NotificationTitle = styled(Typography).attrs({ component: 'h3', var
   color: ${({ theme, $variant }) => {
     switch ($variant) {
       case 'info':
+      case 'loader':
         return theme.colors.info;
       case 'success':
         return theme.colors.success;
@@ -105,6 +115,7 @@ export const NotificationText = styled(Typography).attrs({ component: 'p', varia
   color: ${({ theme, $variant }) => {
     switch ($variant) {
       case 'info':
+      case 'loader':
         return theme.colors.info;
       case 'success':
         return theme.colors.success;

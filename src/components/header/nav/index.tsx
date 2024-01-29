@@ -1,4 +1,5 @@
 import React from 'react';
+import { LayoutGroup } from 'framer-motion';
 import { HeaderNavStyled } from './styled';
 import { useHeaderMenu } from '../menu';
 
@@ -10,11 +11,15 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
   const { isInMenu } = useHeaderMenu();
 
   return (
-    <HeaderNavStyled
-      $inMenu={isInMenu}
-    >
-      {children}
-    </HeaderNavStyled>
+    <LayoutGroup>
+      <HeaderNavStyled
+        $inMenu={isInMenu}
+        layout="position"
+        layoutRoot
+      >
+        {children}
+      </HeaderNavStyled>
+    </LayoutGroup>
   );
 };
 

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { StoryDecorator } from '@/story-decorator';
 import { WebIcon } from '@/icons';
 import { Skeleton as BestChatBotsSkeleton } from '@/components/skeleton'; 
-import { Platform } from '.';
+import { Platform, PlatformDeleteButton } from '.';
 
 export type PlatformMeta = Meta<typeof Platform>;
 
@@ -18,6 +18,16 @@ export const Basic: PlatformStory = {
 export const Skeleton: PlatformStory = {
   args: {
     icon: <BestChatBotsSkeleton />
+  }
+};
+
+export const Text: PlatformStory = {
+  args: {
+    ...Basic.args,
+    variant: 'text',
+    delete: (
+      <PlatformDeleteButton />
+    )
   }
 };
 

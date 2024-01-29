@@ -1,8 +1,10 @@
 import { styled, css } from 'styled-components';
 import { Typography } from '@/components/typography';
-import { SearchIcon } from '@/icons';
+import { CloseIcon, SearchIcon } from '@/icons';
+import { Button } from '@/components/button';
 
 export interface InputStyledProps {
+  $width?: number;
   $fullWidth: boolean;
 }
 
@@ -11,8 +13,8 @@ export const InputStyled = styled.label<InputStyledProps>`
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  ${({ $fullWidth }) => !$fullWidth && css`
-    max-width: 300px;
+  ${({ $fullWidth, $width }) => !$fullWidth && css`
+    max-width: ${$width ?? 300}px;
   `}
 `;
 
@@ -20,16 +22,103 @@ export const InputLabel = styled(Typography).attrs({ variant: 'body-m-regular' }
   margin-bottom: 10px;
 `;
 
-export interface InputBlockProps {
+export const InputBlock = styled.div`
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  border-radius: 8px;
+  ${() => css`
+    ${InputClearButton} {
+      display: none;
+    }
+    &:hover {
+      ${InputNative}[type="search"] {
+        &:not(:placeholder-shown) + ${InputClearButton} {
+          display: inline-flex;
+        }
+      }
+    }
+    ${InputNative}[type="search"]:focus {
+      &:not(:placeholder-shown) + ${InputClearButton} {
+        display: inline-flex;
+      }
+    }
+  `}
+  ${() => css`
+    > ${InputReadonly},
+    > ${InputWritable} {
+      &:not(:last-child) {
+        border-right: none;
+      }
+      &:first-child {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+      }
+      &:last-child {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
+    }
+  `}
+`;
+
+export interface InputReadonlyProps {
+  $disabled: boolean;
+}
+
+export const InputReadonly = styled.span<InputReadonlyProps>`
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  padding: 0px 16px;
+  background: ${({ theme }) => theme.colors.grayScale[700]};
+  border: 1px solid ${({ theme, $disabled }) => {
+    if ($disabled) {
+      return theme.colors.grayScale[500];
+    }
+
+    return theme.colors.grayScale[600];
+  }};
+  cursor: ${({ $disabled }) => {
+    if ($disabled) {
+      return 'not-allowed';
+    }
+    
+    return 'default';
+  }};
+`;
+
+export const InputStart = styled.span`
+  display: inline-flex;
+  padding: 12px 0px;
+`;
+
+export const InputStartText = styled(Typography).attrs({ variant: 'body-m-regular' })`
+  color: ${({ theme }) => theme.colors.grayScale[400]};
+`;
+
+export interface InputWritableProps {
   $focus: boolean;
   $error: boolean;
   $disabled: boolean;
 }
 
-export const InputBlock = styled.div<InputBlockProps>`
+export const InputWritable = styled.span<InputWritableProps>`
   display: inline-flex;
   align-items: center;
-  width: 100%;
+  padding: 0px 16px;
+  cursor: ${({ $disabled }) => {
+    if ($disabled) {
+      return 'not-allowed';
+    }
+    
+    return 'text';
+  }};
+  ${({ theme, $disabled, $error }) => (!$disabled && !$error) && css`
+    &:hover {
+      border-color: ${theme.colors.accent.primary};
+    }
+  `}
   background: ${({ theme, $disabled }) => {
     if ($disabled) {
       return theme.colors.grayScale[700];
@@ -52,20 +141,7 @@ export const InputBlock = styled.div<InputBlockProps>`
 
     return theme.colors.grayScale[600];
   }};
-  border-radius: 8px;
-  cursor: ${({ $disabled }) => {
-    if ($disabled) {
-      return 'not-allowed';
-    }
-    
-    return 'text';
-  }};
-  padding: 0px 16px;
-  ${({ theme, $disabled, $error }) => (!$disabled && !$error) && css`
-    &:hover {
-      border-color: ${theme.colors.accent.primary};
-    }
-  `}
+  width: 100%;
 `;
 
 export const InputSearchIcon = styled(SearchIcon).attrs({ size: 20 })`
@@ -125,6 +201,10 @@ export const InputNative = styled.input<InputNativeProps>`
   &::-webkit-search-results-decoration {
     -webkit-appearance: none;
   }
+`;
+
+export const InputClearButton = styled(Button).attrs({ variant: 'text', iconSize: 16, children: <CloseIcon /> })`
+  margin-left: 10px;
 `;
 
 export const InputErrorText = styled(Typography).attrs({ variant: 'body-m-regular' })`

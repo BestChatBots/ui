@@ -41,6 +41,13 @@ export const Warning: NotificationStory = {
   }
 };
 
+export const Loader: NotificationStory = {
+  args: {
+    ...Text.args,
+    variant: 'loader'
+  }
+};
+
 export default {
   title: 'Components/Notification',
   component: Notification,

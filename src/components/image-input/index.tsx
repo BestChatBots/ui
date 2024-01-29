@@ -1,13 +1,19 @@
-import React, { useCallback, useState } from 'react';
+import React, {
+  useCallback, useLayoutEffect, useState 
+} from 'react';
 import { ImageInputType } from './types';
 import { 
   ImageInputErrorText,
+  ImageInputFile,
+  ImageInputFilePreview,
+  ImageInputFileAttachIcon,
+  ImageInputFileDeleteButton,
+  ImageInputFileName,
+  ImageInputFilePreviewSide,
+  ImageInputFileText,
+  ImageInputFileUploadButton,
+  ImageInputFileUploadIcon,
   ImageInputIcon,
-  ImageInputIconPreview,
-  ImageInputIconPreviewAttachIcon,
-  ImageInputIconPreviewDeleteButton,
-  ImageInputIconPreviewName,
-  ImageInputIconPreviewSide,
   ImageInputIconText,
   ImageInputIconUploadButton,
   ImageInputIconUploadIcon,
@@ -15,7 +21,7 @@ import {
   ImageInputImageIcon, 
   ImageInputImageInfo, 
   ImageInputImagePreview, 
-  ImageInputImagePreviewDeleteButton, 
+  ImageInputImageDeleteButton, 
   ImageInputImagePreviewImage, 
   ImageInputImagePreviewShadow, 
   ImageInputImageText, 
@@ -24,17 +30,19 @@ import {
   ImageInputImageWithoutPreviewIcon, 
   ImageInputLabel, 
   ImageInputNative, 
-  ImageInputStyled 
+  ImageInputStyled, 
+  ImageInputIconPreview,
+  ImageInputIconPreviewIcon,
+  ImageInputIconImage,
+  ImageInputIconDeleteButton,
+  ImageInputIconName
 } from './styled';
 
-export type ImageInputChangeEventHandler = (
-  dataUrl: string | null, 
-  file: File | null, 
-  reader: FileReader | null
-) => unknown;
+export type ImageInputChangeEventHandler = (value: File | null) => unknown;
 
-export interface ImageInputProps extends Omit<React.ComponentProps<'input'>, 'onChange'> {
+export interface ImageInputProps extends Omit<React.ComponentProps<'input'>, 'value' | 'onChange'> {
   type?: ImageInputType;
+  value?: File | URL | null;
   label?: string;
   error?: string;
   onChange?: ImageInputChangeEventHandler;
@@ -42,7 +50,8 @@ export interface ImageInputProps extends Omit<React.ComponentProps<'input'>, 'on
 }
 
 export const ImageInput: React.FC<ImageInputProps> = ({
-  type = 'image', 
+  type = 'image',
+  value: initialValue,
   accept = 'image/png, image/jpeg, image/webp',
   size = 5242880, 
   label, 
@@ -54,40 +63,60 @@ export const ImageInput: React.FC<ImageInputProps> = ({
   const isLabel = !!label;
   const isError = !!error;
 
+  const setInitialValue = useCallback((value: File | null) => {
+    onChange?.(value);
+  }, [onChange]);
+  const [value, setValue] = typeof initialValue !== 'undefined' ? [initialValue, setInitialValue] : useState<File | null>(null);
+
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   const [previewImageFileName, setPreviewImageFileName] = useState<string | null>(null);
 
   const handleChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>((event) => {
     if (event.target.files !== null && event.target.files.length > 0) {
-      const file: File = event.target.files[0];
-      const reader = new FileReader();
-
-      reader.addEventListener('load', () => {
-        const previewImageUrl: string | null = reader.result?.toString() ?? null;
+      const value: File = event.target.files[0];
       
-        setPreviewImageFileName(file.name);
-        setPreviewImageUrl(previewImageUrl);
-
-        onChange?.(
-          previewImageUrl,
-          file,
-          reader
-        );
-      });
-      reader.readAsDataURL(file);
+      setValue(value);
+    } else {
+      setValue(null);
     }
 
     onInputChange?.(event);
-  }, [onChange, onInputChange]);
+  }, [setValue, onInputChange]);
 
   const handleDelete = useCallback<React.MouseEventHandler<HTMLButtonElement>>((event) => {
     event.preventDefault();
-    
-    setPreviewImageFileName(null);
-    setPreviewImageUrl(null);
 
-    onChange?.(null, null, null);
-  }, [onChange]);
+    setValue(null);
+  }, [setValue]);
+
+  if (typeof window !== 'undefined') {
+    useLayoutEffect(() => {
+      if (value !== null) {
+        if (value instanceof File) {
+          const file: File = value;
+          const reader = new FileReader();
+    
+          reader.addEventListener('load', () => {
+            const previewImageUrl: string | null = reader.result?.toString() ?? null;
+          
+            setPreviewImageFileName(file.name);
+            setPreviewImageUrl(previewImageUrl);
+          });
+          reader.readAsDataURL(file);
+        } else if (value instanceof URL) {
+          const url: URL = value;
+          const splitedPath: string[] = url.pathname.split('/');
+          const fileName: string = splitedPath[splitedPath.length - 1];
+
+          setPreviewImageFileName(fileName);
+          setPreviewImageUrl(url.toString());
+        }
+      } else {
+        setPreviewImageFileName(null);
+        setPreviewImageUrl(null);
+      }
+    }, [value]);
+  }
 
   return (
     <ImageInputStyled
@@ -120,11 +149,11 @@ export const ImageInput: React.FC<ImageInputProps> = ({
                 src={previewImageUrl}
               />
               <ImageInputImagePreviewShadow />
-              <ImageInputImagePreviewDeleteButton
+              <ImageInputImageDeleteButton
                 onClick={handleDelete}
               >
                 Удалить
-              </ImageInputImagePreviewDeleteButton>
+              </ImageInputImageDeleteButton>
             </ImageInputImagePreview>
           )}
           {previewImageUrl === null && (
@@ -142,36 +171,70 @@ export const ImageInput: React.FC<ImageInputProps> = ({
       )}
       {type === 'icon' && (
         <ImageInputIcon>
-          {previewImageFileName === null && (
+          {previewImageUrl === null && (
             <ImageInputIconUploadButton>
               <ImageInputIconUploadIcon />
               Загрузить
             </ImageInputIconUploadButton>
           )}
-          {previewImageFileName === null && (
+          {previewImageUrl === null && (
             <ImageInputIconText>
               Максимальный размер: 5 Мб.
             </ImageInputIconText>
           )}
-          {previewImageFileName !== null && (
+          {previewImageUrl !== null && (
             <ImageInputIconPreview>
-              <ImageInputIconPreviewSide>
-                <ImageInputIconPreviewAttachIcon />
-                <ImageInputIconPreviewName>
-                  {previewImageFileName}
-                </ImageInputIconPreviewName>
-              </ImageInputIconPreviewSide>
-              <ImageInputIconPreviewSide>
-                <ImageInputIconPreviewDeleteButton 
+              <ImageInputIconPreviewIcon>
+                <ImageInputIconImage
+                  src={previewImageUrl}
+                />
+                <ImageInputIconDeleteButton 
                   onClick={handleDelete}
                 />
-              </ImageInputIconPreviewSide>
+              </ImageInputIconPreviewIcon>
+              {previewImageFileName !== null && (
+                <ImageInputIconName>
+                  {previewImageFileName}
+                </ImageInputIconName>
+              )}
             </ImageInputIconPreview>
           )}
         </ImageInputIcon>
       )}
+      {type === 'file' && (
+        <ImageInputFile>
+          {previewImageFileName === null && (
+            <ImageInputFileUploadButton>
+              <ImageInputFileUploadIcon />
+              Загрузить
+            </ImageInputFileUploadButton>
+          )}
+          {previewImageFileName === null && (
+            <ImageInputFileText>
+              Максимальный размер: 5 Мб.
+            </ImageInputFileText>
+          )}
+          {previewImageFileName !== null && (
+            <ImageInputFilePreview>
+              <ImageInputFilePreviewSide>
+                <ImageInputFileAttachIcon />
+                <ImageInputFileName>
+                  {previewImageFileName}
+                </ImageInputFileName>
+              </ImageInputFilePreviewSide>
+              <ImageInputFilePreviewSide>
+                <ImageInputFileDeleteButton 
+                  onClick={handleDelete}
+                />
+              </ImageInputFilePreviewSide>
+            </ImageInputFilePreview>
+          )}
+        </ImageInputFile>
+      )}
       {isError && (
-        <ImageInputErrorText>
+        <ImageInputErrorText
+          $type={type}
+        >
           {error}
         </ImageInputErrorText>
       )}

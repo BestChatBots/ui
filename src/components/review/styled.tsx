@@ -2,19 +2,19 @@ import { styled, css } from 'styled-components';
 import { Avatar } from '@/components/avatar';
 import { Typography } from '@/components/typography';
 import { Stars } from '@/components/stars';
-import { ThumbDownIcon, ThumbUpIcon } from '@/icons';
-import { CommentVariant } from './types';
+import { OfficialProfileIcon, ThumbDownIcon, ThumbUpIcon } from '@/icons';
+import { ReviewVariant } from './types';
 import { adaptive } from '@/adaptive';
 import { SkeletonStyled } from '@/components/skeleton';
 import { Button } from '@/components/button';
 import { Form } from '@/components/form';
 import { TextArea } from '@/components/textarea';
 
-export interface CommentStyledProps {
-  $variant: CommentVariant;
+export interface ReviewStyledProps {
+  $variant: ReviewVariant;
 }
 
-export const CommentStyled = styled.div<CommentStyledProps>`
+export const ReviewStyled = styled.div<ReviewStyledProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -64,7 +64,7 @@ export const CommentStyled = styled.div<CommentStyledProps>`
   })}
 `;
 
-export const CommentHead = styled.div`
+export const ReviewHead = styled.div`
   display: flex;
   width: 100%;
   ${adaptive({
@@ -82,7 +82,7 @@ export const CommentHead = styled.div`
   })}
 `;
 
-export const CommentHeadSide = styled.div`
+export const ReviewHeadSide = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -94,38 +94,54 @@ export const CommentHeadSide = styled.div`
   })}
 `;
 
-export const Commentator = styled.span`
+export const Reviewer = styled.span`
   display: flex;
   align-items: center;
   gap: 10px;
 `;
 
-export const CommentatorAvatar = styled(Avatar).attrs({ size: 24 })``;
+export const ReviewerAvatar = styled(Avatar).attrs({ size: 24 })``;
 
-export const CommentatorName = styled(Typography).attrs({ variant: 'body-m-medium' })`
+export const ReviewerAdminAvatar = styled(OfficialProfileIcon).attrs({ size: 24 })``;
+
+export const ReviewerName = styled(Typography).attrs({ variant: 'body-m-medium' })`
   cursor: default;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  ${adaptive({
+    desktop: css`
+      max-width: 340px;
+    `,
+    tablet: css`
+      max-width: 240px;
+    `,
+    mobile: css`
+      max-width: 180px;
+    `
+  })}
 `;
 
-export const CommentStars = styled(Stars).attrs({ size: 18 })``;
+export const ReviewStars = styled(Stars).attrs({ size: 18 })``;
 
-export const CommentDateCreated = styled(Typography).attrs({ variant: 'body-m-regular' })`
+export const ReviewDateCreated = styled(Typography).attrs({ variant: 'body-m-regular' })`
   color: ${({ theme }) => theme.colors.grayScale[500]};
   cursor: default;
 `;
 
-export const CommentGoodIcon = styled(ThumbUpIcon).attrs({ size: 18 })`
+export const ReviewGoodIcon = styled(ThumbUpIcon).attrs({ size: 18 })`
   path {
     fill: ${({ theme }) => theme.colors.success};
   }
 `;
 
-export const CommentBadIcon = styled(ThumbDownIcon).attrs({ size: 18 })`
+export const ReviewBadIcon = styled(ThumbDownIcon).attrs({ size: 18 })`
   path {
     fill: ${({ theme }) => theme.colors.error};
   }
 `;
 
-export const CommentBody = styled.div`
+export const ReviewBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -133,9 +149,11 @@ export const CommentBody = styled.div`
   margin-top: 10px;
 `;
 
-export const CommentText = styled(Typography).attrs({ variant: 'body-s-regular' })``;
+export const ReviewText = styled(Typography).attrs({ variant: 'body-s-regular' })`
+  white-space: pre-wrap;
+`;
 
-export const CommentTextSkeleton = styled.div`
+export const ReviewTextSkeleton = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -154,29 +172,29 @@ export const CommentTextSkeleton = styled.div`
   }
 `;
 
-export const CommentActions = styled.div`
+export const ReviewActions = styled.div`
   display: flex;
   gap: 20px;
   margin-top: 10px;
 `;
 
-export const CommentAction = styled(Button).attrs({ variant: 'text', textVariant: 'body-m-medium' })``;
+export const ReviewAction = styled(Button).attrs({ variant: 'text', textVariant: 'body-m-medium' })``;
 
-export const CommentSendAction = styled(CommentAction).attrs(({ theme }) => ({ color: theme.colors.accent.primary, hoverColor: theme.colors.accent.primary }))``;
+export const ReviewSendAction = styled(ReviewAction).attrs(({ theme }) => ({ color: theme.colors.accent.primary, hoverColor: theme.colors.accent.primary }))``;
 
-export const CommentDeleteAction = styled(CommentAction).attrs(({ theme }) => ({ color: theme.colors.error, hoverColor: theme.colors.error }))``;
+export const ReviewDeleteAction = styled(ReviewAction).attrs(({ theme }) => ({ color: theme.colors.error, hoverColor: theme.colors.error }))``;
 
-export const CommentSendForm = styled(Form).attrs({ spacing: 12, fullWidth: true })`
+export const ReviewSendForm = styled(Form).attrs({ spacing: 12, fullWidth: true })`
   margin-top: 10px;
 `;
 
-export const CommentSendInput = styled(TextArea).attrs({ fullWidth: true })`
+export const ReviewSendInput = styled(TextArea).attrs({ fullWidth: true })`
   max-height: 106px;
 `;
 
-export const CommentSendButton = styled(Button).attrs({ type: 'submit' })``;
+export const ReviewSendButton = styled(Button).attrs({ type: 'submit' })``;
 
-export const CommentChildren = styled.div`
+export const ReviewChildren = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;

@@ -5,6 +5,7 @@
   "rules": {
     "prefer-destructuring": "off",
     "no-unused-vars": "off",
-    "no-nested-ternary": "off"
+    "no-nested-ternary": "off",
+    "no-new": "off"
   }
 }

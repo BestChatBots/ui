@@ -3,7 +3,7 @@ import { Button, ButtonText } from '@/components/button';
 import { Typography } from '@/components/typography';
 import { Image } from '@/components/image';
 import {
-  AttachIcon, NoimgIcon, TrashIcon, UploadIcon 
+  AttachIcon, CloseIcon, NoimgIcon, TrashIcon, UploadIcon 
 } from '@/icons';
 import { ImageInputType } from './types';
 import { adaptive } from '@/adaptive';
@@ -20,9 +20,11 @@ export const ImageInputStyled = styled.label<ImageInputStyledProps>`
   cursor: pointer;
   ${({ theme }) => css`
     &:hover {
-      ${ImageInputIconUploadButton} {
+      ${ImageInputIconUploadButton},
+      ${ImageInputFileUploadButton} {
         background: ${theme.colors.accent.primary};
-        ${ImageInputIconUploadIcon} path {
+        ${ImageInputIconUploadIcon} path,
+        ${ImageInputFileUploadIcon} path {
           fill: ${theme.colors.base.white};
         }
       }
@@ -53,6 +55,7 @@ export const ImageInputLabel = styled(Typography).attrs({ variant: 'body-m-regul
           text-align: center;
         `;
       case 'icon':
+      case 'file':
         return css`
           margin-bottom: 10px;
         `;
@@ -114,7 +117,7 @@ export const ImageInputImagePreviewShadow = styled.div`
   pointer-events: none;
 `;
 
-export const ImageInputImagePreviewDeleteButton = styled(Button).attrs({ endIcon: <TrashIcon /> })`
+export const ImageInputImageDeleteButton = styled(Button).attrs({ endIcon: <TrashIcon /> })`
   position: absolute;
   right: 13px;
   bottom: 13px;
@@ -167,7 +170,70 @@ export const ImageInputIconUploadButton = styled(Typography).attrs({ variant: 'b
 
 export const ImageInputIconUploadIcon = styled(UploadIcon).attrs({ size: 18 })``;
 
+export const ImageInputIconText = styled(Typography).attrs({ component: 'p', variant: 'body-s-regular' })`
+  color: ${({ theme }) => theme.colors.grayScale[400]};
+  margin-top: 10px;
+`;
+
 export const ImageInputIconPreview = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+export const ImageInputIconPreviewIcon = styled.div`
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 38px;
+  height: 36px;
+  position: relative;
+`;
+
+export const ImageInputIconImage = styled(Image).attrs({ width: 34, height: 34 })`
+  object-fit: cover;
+  border-radius: 50%;
+`;
+
+export const ImageInputIconDeleteButton = styled(Button).attrs(({ theme }) => ({
+  variant: 'text', 
+  hoverColor: theme.colors.base.white, 
+  iconSize: 10, 
+  children: <CloseIcon /> 
+}))`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.colors.grayScale[600]};
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  transition: 0.25s all;
+  &:hover {
+    background: ${({ theme }) => theme.colors.accent.primary};
+  }
+`;
+
+export const ImageInputIconName = styled(Typography).attrs({ variant: 'body-s-regular' })`
+  color: ${({ theme }) => theme.colors.accent.primary};
+  max-width: 200px;
+`;
+
+export const ImageInputFile = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+export const ImageInputFileUploadButton = styled(ImageInputIconUploadButton)``;
+
+export const ImageInputFileUploadIcon = styled(ImageInputIconUploadIcon)``;
+
+export const ImageInputFileText = styled(ImageInputIconText)``;
+
+export const ImageInputFilePreview = styled.div`
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -175,30 +241,39 @@ export const ImageInputIconPreview = styled.div`
   max-width: 287px; 
 `;
 
-export const ImageInputIconPreviewSide = styled.div`
+export const ImageInputFilePreviewSide = styled.div`
   display: inline-flex;
   align-items: center;
   gap: 10px;
 `;
 
-export const ImageInputIconPreviewAttachIcon = styled(AttachIcon).attrs({ size: 18 })`
+export const ImageInputFileAttachIcon = styled(AttachIcon).attrs({ size: 18 })`
   path {
     fill: ${({ theme }) => theme.colors.accent.primary};
   }
 `;
 
-export const ImageInputIconPreviewName = styled(Typography).attrs({ variant: 'body-s-regular' })`
+export const ImageInputFileName = styled(Typography).attrs({ variant: 'body-s-regular' })`
   color: ${({ theme }) => theme.colors.accent.primary};
 `;
 
-export const ImageInputIconPreviewDeleteButton = styled(Button).attrs(({ theme }) => ({ variant: 'text', color: theme.colors.accent.primary, children: <TrashIcon /> }))``;
+export const ImageInputFileDeleteButton = styled(Button).attrs(({ theme }) => ({ variant: 'text', color: theme.colors.accent.primary, children: <TrashIcon /> }))``;
 
-export const ImageInputIconText = styled(Typography).attrs({ component: 'p', variant: 'body-s-regular' })`
-  color: ${({ theme }) => theme.colors.grayScale[400]};
-  margin-top: 10px;
-`;
+export interface ImageInputErrorTextProps {
+  $type: ImageInputType;
+}
 
-export const ImageInputErrorText = styled(Typography).attrs({ variant: 'body-m-regular' })`
+export const ImageInputErrorText = styled(Typography).attrs({ variant: 'body-m-regular' })<ImageInputErrorTextProps>`
   margin-top: 10px;
   color: ${({ theme }) => theme.colors.error};
+  ${({ $type }) => {
+    switch ($type) {
+      case 'image':
+        return css`
+          text-align: center;
+        `;
+      case 'file':
+        return css``;
+    }
+  }}
 `;

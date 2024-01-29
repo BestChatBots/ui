@@ -7,7 +7,7 @@ export interface HeaderNavLinkStyledProps {
   $inMenu: boolean;
 }
 
-export const HeaderNavLinkStyled = styled.a<HeaderNavLinkStyledProps>`
+export const HeaderNavLinkStyled = styled(motion.a)<HeaderNavLinkStyledProps>`
   ${({ $inMenu }) => {
     if ($inMenu) {
       return css`

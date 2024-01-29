@@ -23,9 +23,8 @@ export const Skeleton: ModelStory = {
 
 export const Text: ModelStory = {
   args: {
+    ...Basic.args,
     variant: 'text',
-    icon: <MjIcon />,
-    name: 'Midjourney',
     delete: (
       <ModelDeleteButton />
     )

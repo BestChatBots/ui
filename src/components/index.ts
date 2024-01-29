@@ -6,7 +6,7 @@ export * from './block';
 export * from './button';
 export * from './checkbox';
 export * from './chip';
-export * from './comment';
+export * from './review';
 export * from './container';
 export * from './drawer';
 export * from './link';

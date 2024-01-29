@@ -112,6 +112,7 @@ export const Button: React.FC<ButtonProps> = ({
       $color={color}
       $hoverColor={hoverColor}
       {...props}
+      disabled={disabled}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseEnter={handleMouseEnter}

@@ -59,6 +59,7 @@ export const HeaderNavLink: React.FC<HeaderNavLinkProps> = ({
       >
         <IconProvider
           fill={!isHover && !active ? theme.colors.grayScale[500] : theme.colors.accent.primary}
+          stroke={!isHover && !active ? '#B3B3B3' : theme.colors.base.white}
           size={20}
         >
           {icon}
@@ -70,6 +71,7 @@ export const HeaderNavLink: React.FC<HeaderNavLinkProps> = ({
           {active && (
             <HeaderNavLinkLine
               $active
+              layout="position"
               layoutId="underline"
             />
           )}

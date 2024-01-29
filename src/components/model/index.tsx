@@ -1,7 +1,7 @@
 import React from 'react';
 import { ModelVariant } from './types';
 import {
-  ModelIcon, ModelName, ModelStyled, ModelText 
+  ModelIconContainer, ModelName, ModelStyled, ModelText 
 } from './styled';
 import { Tooltip, TooltipConsumer } from '@/components/tooltip';
 import { IconProvider } from '@/components/icon';
@@ -27,9 +27,9 @@ export const Model: React.FC<ModelProps> = ({
     >
       {variant === 'icon' && (
         isIconSkeleton ? (
-          <ModelIcon>
+          <ModelIconContainer>
             {icon}
-          </ModelIcon>
+          </ModelIconContainer>
         ) : (
           <Tooltip label={name}>
             <TooltipConsumer>
@@ -39,7 +39,7 @@ export const Model: React.FC<ModelProps> = ({
                 handleTooltipMouseDown,
                 handleTooltipMouseUp
               }) => (
-                <ModelIcon
+                <ModelIconContainer
                   onMouseEnter={handleTooltipMouseEnter}
                   onMouseLeave={handleTooltipMouseLeave}
                   onMouseDown={handleTooltipMouseDown}
@@ -50,7 +50,7 @@ export const Model: React.FC<ModelProps> = ({
                   >
                     {icon}
                   </IconProvider>
-                </ModelIcon>
+                </ModelIconContainer>
               )}
             </TooltipConsumer>
           </Tooltip>

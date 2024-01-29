@@ -12,6 +12,13 @@ export const Basic: ImageInputStory = {
   }
 };
 
+export const Error: ImageInputStory = {
+  args: {
+    ...Basic.args,
+    error: 'Недопустимый формат изображения'
+  }
+};
+
 export const Icon: ImageInputStory = {
   args: {
     type: 'icon',
@@ -19,9 +26,23 @@ export const Icon: ImageInputStory = {
   }
 };
 
-export const Error: ImageInputStory = {
+export const IconError: ImageInputStory = {
   args: {
     ...Icon.args,
+    error: 'Недопустимый формат изображения'
+  }
+};
+
+export const File: ImageInputStory = {
+  args: {
+    type: 'file',
+    label: 'Иконка модели'
+  }
+};
+
+export const FileError: ImageInputStory = {
+  args: {
+    ...File.args,
     error: 'Недопустимый формат изображения'
   }
 };

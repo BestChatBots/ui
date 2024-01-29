@@ -4,6 +4,7 @@ import { BackgroundVariant } from './types';
 
 export interface BackgroundStyledProps {
   $variant: BackgroundVariant;
+  $position?: string;
 }
 
 export const BackgroundStyled = styled.div<BackgroundStyledProps>`
@@ -16,15 +17,14 @@ export const BackgroundStyled = styled.div<BackgroundStyledProps>`
   left: 0px;
   right: 0px;
   pointer-events: none;
-  ${({ $variant }) => {
+  ${({ $variant, $position }) => {
     switch ($variant) {
       case 'lines': {
         return css`
           background: url(${JSON.stringify(lines)});
-          background-position: center;
           background-repeat: no-repeat;
           background-size: 1440px 1123px;
-          background-position: top center;
+          background-position: ${$position ?? 'top center'};
         `;
       }
       default:

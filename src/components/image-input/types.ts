@@ -1,1 +1,1 @@
-export type ImageInputType = 'image' | 'icon';
+export type ImageInputType = 'image' | 'icon' | 'file';

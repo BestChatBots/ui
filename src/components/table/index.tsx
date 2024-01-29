@@ -43,3 +43,4 @@ export const Table: React.FC<TableProps> = ({
 export * from './styled';
 export * from './row';
 export * from './cell';
+export * from './empty';

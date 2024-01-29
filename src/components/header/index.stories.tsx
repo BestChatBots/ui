@@ -14,8 +14,7 @@ import {
 } from '.';
 import { Logo } from '@/components/logo';
 import {
-  GearIcon,
-  InfoIcon, MailIcon, ProjectsIcon, RatingIcon, StarFilledIcon 
+  InfoIcon, MailIcon, ModelIcon, PlatformIcon, ProjectsIcon, RatingIcon, StarFilledIcon 
 } from '@/icons';
 
 export type HeaderMeta = Meta<typeof Header>;
@@ -123,9 +122,15 @@ export const Admin: HeaderStory = {
         </HeaderNavLink>
         <HeaderNavLink 
           href="#"
-          icon={<GearIcon />}  
+          icon={<ModelIcon />}  
         >
-          Список моделей
+          Модели
+        </HeaderNavLink>
+        <HeaderNavLink
+          href="#"
+          icon={<PlatformIcon />}
+        >
+          Платформы
         </HeaderNavLink>
       </HeaderNav>
     )

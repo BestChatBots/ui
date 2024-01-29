@@ -39,6 +39,13 @@ export const Basic: NotificationsStory = {
         >
           Текстовое сопровождение для подсказки
         </Notification>
+        <Notification
+          variant="loader"
+          title="Титул сообщения"
+          autoClose={3000}
+        >
+          Текстовое сопровождение для подсказки
+        </Notification>
       </>
     )
   }
