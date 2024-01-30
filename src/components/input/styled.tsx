@@ -1,6 +1,6 @@
 import { styled, css } from 'styled-components';
 import { Typography } from '@/components/typography';
-import { CloseIcon, SearchIcon } from '@/icons';
+import { CloseIcon, Loader2Icon, SearchIcon } from '@/icons';
 import { Button } from '@/components/button';
 
 export interface InputStyledProps {
@@ -142,6 +142,10 @@ export const InputWritable = styled.span<InputWritableProps>`
     return theme.colors.grayScale[600];
   }};
   width: 100%;
+`;
+
+export const InputLoadingIcon = styled(Loader2Icon).attrs({ size: 20 })`
+  margin-right: 10px;
 `;
 
 export const InputSearchIcon = styled(SearchIcon).attrs({ size: 20 })`

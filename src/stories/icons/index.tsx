@@ -31,6 +31,7 @@ import {
   IosIcon,
   LangIcon,
   LinkOutIcon,
+  Loader2Icon,
   LoaderIcon,
   LogoutIcon,
   MailIcon,
@@ -116,6 +117,7 @@ export const Icons: React.FC<IconsProps> = ({ ...props }) => (
           <IconItem name="ModelIcon">{ModelIcon}</IconItem>
           <IconItem name="PlatformIcon">{PlatformIcon}</IconItem>
           <IconItem name="LoaderIcon">{LoaderIcon}</IconItem>
+          <IconItem name="Loader2Icon">{Loader2Icon}</IconItem>
           <IconItem name="ReviewBigIcon">{ReviewBigIcon}</IconItem>
         </IconsGroupContent>
       </IconsGroup>

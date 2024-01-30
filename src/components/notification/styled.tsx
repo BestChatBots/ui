@@ -91,6 +91,7 @@ export interface NotificationTitleProps {
 }
 
 export const NotificationTitle = styled(Typography).attrs({ component: 'h3', variant: 'body-l-semibold' })<NotificationTitleProps>`
+  white-space: pre-wrap;
   color: ${({ theme, $variant }) => {
     switch ($variant) {
       case 'info':
@@ -112,6 +113,7 @@ export interface NotificationTextProps {
 
 export const NotificationText = styled(Typography).attrs({ component: 'p', variant: 'body-s-regular' })<NotificationTextProps>`
   margin-top: 8px;
+  white-space: pre-wrap;
   color: ${({ theme, $variant }) => {
     switch ($variant) {
       case 'info':

@@ -4,6 +4,7 @@ import {
   InputClearButton, 
   InputErrorText, 
   InputLabel, 
+  InputLoadingIcon, 
   InputNative, 
   InputReadonly, 
   InputSearchIcon, 
@@ -22,13 +23,15 @@ export interface InputProps extends Omit<React.ComponentProps<'input'>, 'onChang
   start?: React.ReactNode;
   error?: string;
   width?: number;
+  loading?: boolean;
   fullWidth?: boolean;
   onChange?: InputChangeEventHandler;
   onInputChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 export const Input: React.FC<InputProps> = ({
-  className, label, start, error, width, fullWidth = false, type, disabled = false, 
+  className, label, start, error, width, type,
+  loading = false, fullWidth = false, disabled = false, 
   onFocus, onBlur, onChange, onInputChange, 
   ...props
 }) => {
@@ -62,6 +65,7 @@ export const Input: React.FC<InputProps> = ({
 
   const isLabel = !!label;
   const isStart = !!start;
+  const isLoading = loading;
   const isError = !!error;
 
   return (
@@ -95,13 +99,18 @@ export const Input: React.FC<InputProps> = ({
           $error={isError}
           $disabled={disabled}
         >
-          <IconProvider
-            fill={isFocus ? theme.colors.base.white : theme.colors.grayScale[500]}
-          >
-            {type === 'search' && (
-              <InputSearchIcon />
-            )}
-          </IconProvider>
+          {isLoading && (
+            <InputLoadingIcon />
+          )}
+          {!isLoading && (
+            <IconProvider
+              fill={isFocus ? theme.colors.base.white : theme.colors.grayScale[500]}
+            >
+              {type === 'search' && (
+                <InputSearchIcon />
+              )}
+            </IconProvider>
+          )}
           <InputNative
             $disabled={disabled}
             {...props}

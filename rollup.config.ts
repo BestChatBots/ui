@@ -14,6 +14,7 @@ import del from 'rollup-plugin-delete';
 import terser from '@rollup/plugin-terser';
 import nodeExternals from 'rollup-plugin-node-externals';
 import babel from '@rollup/plugin-babel';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export function createConfig(): RollupOptions[] {
   const rootPath: string = process.cwd();
@@ -39,10 +40,15 @@ export function createConfig(): RollupOptions[] {
           dir: distPath,
           format: 'es',
           sourcemap: true,
-          externalLiveBindings: false
+          externalLiveBindings: false,
+          preserveModules: true,
+          preserveModulesRoot: join(srcPath)
         }
       ],
       plugins: [
+        commonjs({
+          include: 'node_modules/**'
+        }),
         del({
           targets: [
             join(distPath, './*')
@@ -55,26 +61,26 @@ export function createConfig(): RollupOptions[] {
           browser: true,
           extensions: ['.css', '.ts', '.tsx', '.js', '.jsx']
         }),
-        commonjs(),
+        esbuild({
+          minify: true,
+          tsconfig: join(rootPath, './tsconfig.json'),
+          exclude: [
+            '**/*.stories.ts'
+          ],
+          sourceMap: false
+        }),
         babel({ 
           babelHelpers: 'bundled',
           exclude: 'node_modules/**',
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
           babelrc: true
         }),
-        esbuild({
-          minify: true,
-          tsconfig: join(rootPath, './tsconfig.json'),
-          exclude: [
-            'node_modules/**',
-            '**/*.stories.ts'
-          ]
-        }),
         image({
           include: ['**/*.png', '**/*.svg', '**/*.webp']
         }),
         postcss(),
-        terser()
+        terser(),
+        visualizer()
       ],
       external
     },

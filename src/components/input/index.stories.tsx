@@ -40,6 +40,13 @@ export const Search: InputStory = {
   }
 };
 
+export const Loading: InputStory = {
+  args: {
+    ...Search.args,
+    loading: true
+  }
+};
+
 export const Start: InputStory = {
   args: {
     ...Basic.args,

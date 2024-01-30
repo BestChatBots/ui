@@ -153,6 +153,13 @@ export const CheckboxModel: SelectStory = {
   }
 };
 
+export const Loading: SelectStory = {
+  args: {
+    ...CheckboxModel.args,
+    loading: true
+  }
+};
+
 export default {
   title: 'Components/Select',
   component: Select,

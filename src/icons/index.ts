@@ -48,4 +48,5 @@ export * from './plus';
 export * from './model';
 export * from './platform';
 export * from './loader';
+export * from './loader-2';
 export * from './review-big';

@@ -1,6 +1,6 @@
 import { css, styled } from 'styled-components';
 import { Typography } from '@/components/typography';
-import { ArrowDownIcon } from '@/icons';
+import { ArrowDownIcon, Loader2Icon } from '@/icons';
 import { Chip } from '@/components/chip';
 import { SelectVariant } from './types';
 import { Checkbox } from '@/components/checkbox';
@@ -117,6 +117,8 @@ export const SelectValueList = styled.div`
 export const SelectValueListItem = styled(Chip)`
   cursor: pointer;
 `;
+
+export const SelectLoadingIcon = styled(Loader2Icon).attrs({ size: 20 })``;
 
 export const SelectIndicator = styled(Typography).attrs({ variant: 'body-s-regular' })`
   display: inline-flex;

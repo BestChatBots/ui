@@ -23,7 +23,8 @@ import {
   SelectCheckbox,
   SelectIndicator,
   SelectContentScrollbarWrapper,
-  SelectContentContent
+  SelectContentContent,
+  SelectLoadingIcon
 } from './styled';
 import { Portal } from '@/components/portal';
 import { IconProvider } from '@/components/icon';
@@ -52,13 +53,16 @@ export type SelectProps = (SelectDefaultProps | SelectMultiProps) & {
   error?: string;
   valueLabel?: React.ReactNode;
   disabled?: boolean;
+  loading?: boolean;
   data: SelectDataItem[];
   placeholder?: string;
   fullWidth?: boolean;
 };
 
 export const Select: React.FC<SelectProps> = ({
-  className, variant = 'default', disabled = false, fullWidth = false, ...props
+  className, 
+  variant = 'default', disabled = false, loading = false, fullWidth = false, 
+  ...props
 }) => {
   const theme = useTheme();
 
@@ -82,6 +86,7 @@ export const Select: React.FC<SelectProps> = ({
   const isValue = value.length !== 0;
   const isPlaceholder = !!props.placeholder;
   const isError = !!props.error;
+  const isLoading = loading;
 
   const inputRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -237,10 +242,17 @@ export const Select: React.FC<SelectProps> = ({
             {props.placeholder}
           </SelectPlaceholder>
         ) : null}
-        {(props.multiple && variant === 'checkbox' && value.length !== 0) && (
-          <SelectIndicator>
-            {value.length}
-          </SelectIndicator>
+        {isLoading && (
+          <SelectLoadingIcon />
+        )}
+        {!isLoading && (
+          <>
+            {(props.multiple && variant === 'checkbox' && value.length !== 0) && (
+              <SelectIndicator>
+                {value.length}
+              </SelectIndicator>
+            )}
+          </>
         )}
         <SelectArrow 
           initial={{
