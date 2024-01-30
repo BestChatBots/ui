@@ -10,6 +10,7 @@ export * from './review';
 export * from './container';
 export * from './drawer';
 export * from './link';
+export * from './external-link';
 export * from './footer';
 export * from './form';
 export * from './header';

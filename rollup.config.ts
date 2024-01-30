@@ -8,13 +8,13 @@ import postcss from 'rollup-plugin-postcss';
 import image from '@rollup/plugin-image';
 import commonjs from '@rollup/plugin-commonjs';
 import alias from '@rollup/plugin-alias';
-import dts from 'rollup-plugin-dts';
 import { readFileSync } from 'fs';
 import del from 'rollup-plugin-delete';
 import terser from '@rollup/plugin-terser';
 import nodeExternals from 'rollup-plugin-node-externals';
 import babel from '@rollup/plugin-babel';
 import { visualizer } from 'rollup-plugin-visualizer';
+import typescript from '@rollup/plugin-typescript';
 
 export function createConfig(): RollupOptions[] {
   const rootPath: string = process.cwd();
@@ -46,9 +46,6 @@ export function createConfig(): RollupOptions[] {
         }
       ],
       plugins: [
-        commonjs({
-          include: 'node_modules/**'
-        }),
         del({
           targets: [
             join(distPath, './*')
@@ -56,10 +53,21 @@ export function createConfig(): RollupOptions[] {
           runOnce: true
         }),
         aliasPlugin,
-        nodeExternals(),
+        commonjs({
+          include: /node_modules/,
+          defaultIsModuleExports: true
+        }),
+        nodeExternals({
+          exclude: ['tslib']
+        }),
         nodeResolve({
-          browser: true,
           extensions: ['.css', '.ts', '.tsx', '.js', '.jsx']
+        }),
+        babel({ 
+          babelHelpers: 'bundled',
+          exclude: 'node_modules/**',
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+          babelrc: true
         }),
         esbuild({
           minify: true,
@@ -69,35 +77,20 @@ export function createConfig(): RollupOptions[] {
           ],
           sourceMap: false
         }),
-        babel({ 
-          babelHelpers: 'bundled',
-          exclude: 'node_modules/**',
-          extensions: ['.js', '.jsx', '.ts', '.tsx'],
-          babelrc: true
-        }),
         image({
           include: ['**/*.png', '**/*.svg', '**/*.webp']
         }),
         postcss(),
         terser(),
-        visualizer()
-      ],
-      external
-    },
-    {
-      input: join(srcPath, './index.ts'),
-      output: [
-        {
-          file: join(distPath, './index.d.ts'),
-          format: 'es'
-        }
-      ],
-      plugins: [
-        dts(),
-        aliasPlugin,
-        postcss({
-          inject: false,
-          extract: false
+        visualizer(),
+        typescript({
+          tsconfig: './tsconfig.json',
+          rootDir: './src',
+          declaration: true,
+          declarationDir: './dist',
+          exclude: [
+            './**/*.stories.tsx'
+          ]
         })
       ],
       external

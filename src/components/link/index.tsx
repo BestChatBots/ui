@@ -41,5 +41,3 @@ export const Link: React.FC<LinkProps> = ({
     )}
   </LinkStyled>
 );
-
-export * from './external';

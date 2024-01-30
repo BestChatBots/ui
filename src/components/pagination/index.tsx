@@ -1,8 +1,11 @@
 import React, { useCallback } from 'react';
-import ReactPaginate, { ReactPaginateProps } from 'react-paginate';
+import reactPaginateModule, { ReactPaginateProps } from 'react-paginate';
 import { PaginationArrowLeftIcon, PaginationArrowRightIcon, PaginationStyled } from './styled';
 import { useTheme } from '@/theme';
 import { IconProvider } from '@/components/icon';
+import { interopDefaultCJSImport } from '@/utils';
+
+export const ReactPaginate = interopDefaultCJSImport(reactPaginateModule);
 
 export type PaginationChangeEventHandler = (page: number) => unknown;
 
