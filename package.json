@@ -1,6 +1,6 @@
 {
   "name": "@bestchatbots/ui",
-  "version": "1.0.0-alpha.7",
+  "version": "1.0.0-alpha.8",
   "description": "UI Kit for BestChatBots",
   "type": "module",
   "main": "./dist/index.js",

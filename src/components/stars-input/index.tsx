@@ -22,13 +22,17 @@ export interface StarsInputProps extends Omit<React.ComponentProps<'div'>, 'chil
   filled?: number;
   fullWidth?: boolean;
   error?: string;
+  goodText?: string;
+  badText?: string;
   onChange?: StarsInputChangeEventHandler;
   onHover?: StarsInputHoverEventHandler;
   onStarsMouseLeave?: StarsInputStarsMouseLeaveEventHandler;
 }
 
 export const StarsInput: React.FC<StarsInputProps> = ({
-  type = 'good', filled: initialFilled, fullWidth = false, error, onChange, onHover, onStarsMouseLeave, ...props
+  type = 'good', filled: initialFilled, fullWidth = false, error, goodText, badText, 
+  onChange, onHover, onStarsMouseLeave, 
+  ...props
 }) => {
   const setInitialFilled = useCallback((filled: number) => {
     onChange?.(filled);
@@ -71,7 +75,7 @@ export const StarsInput: React.FC<StarsInputProps> = ({
               <StarsInputTypeText
                 $type={type}
               >
-                Позитивный
+                {goodText ?? 'Позитивный'}
               </StarsInputTypeText>
               <StarsInputTypeGoodIcon />
             </StarsInputType>
@@ -81,7 +85,7 @@ export const StarsInput: React.FC<StarsInputProps> = ({
               <StarsInputTypeText
                 $type={type}
               >
-                Негативный
+                {badText ?? 'Негативный'}
               </StarsInputTypeText>
               <StarsInputTypeBadIcon />
             </StarsInputType>
